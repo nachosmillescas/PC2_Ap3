@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.26.1 (a9d05d509)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: product-page
+  name: product-page
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: product-page
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.version: 1.26.1 (a9d05d509)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: product-page
+    spec:
+      containers:
+        - env:
+            - name: DETAILS_HOSTNAME
+              value: details
+            - name: ENABLE_RATINGS
+              value: "true"
+            - name: GROUP_NUMBER
+              value: Equipo 33
+            - name: RATINGS_HOSTNAME
+              value: ratings
+            - name: REVIEWS_HOSTNAME
+              value: reviews
+          image: g33/productpage
+          name: g33-productpage
+          ports:
+            - containerPort: 9080
+          resources: {}
+      restartPolicy: Always
+status: {}

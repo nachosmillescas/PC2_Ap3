@@ -16,6 +16,8 @@ services:
     container_name: g33-details
     image: g33/details
     build: ./details
+    expose: 
+      - "8080"
   reviews:
     container_name: g33-reviews
     image: g33/reviews
@@ -24,9 +26,13 @@ services:
       - RATINGS_HOSTNAME=ratings
       - ENABLE_RATINGS=true
       - SERVICE_VERSION=v3
+    expose:
+      - "7080"
   ratings:
     container_name: g33-ratings
     image: g33/ratings
     build: ./ratings
     environment:
       - SERVICE_VERSION=v1
+    expose:
+      - "3000"
